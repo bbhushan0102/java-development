@@ -23,20 +23,6 @@ public class Home extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
             }
-            case "listusers": {
-                List<User> users = new ArrayList<>();
-                try {
-                    users = new UsersModel().listuser();
-                    request.setAttribute("listusers", users);
-                    request.setAttribute("title", "List User");
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                request.getRequestDispatcher("listusers.jsp").forward(request, response);
-            }
             default:
                 request.setAttribute("title", "Error");
                 request.getRequestDispatcher("error.jsp").forward(request, response);

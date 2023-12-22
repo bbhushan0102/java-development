@@ -9,17 +9,18 @@
 <html>
 
 <head>
-  <title>simplestyle_horizon - contact us</title>
-  <meta name="description" content="website description" />
-  <meta name="keywords" content="website keywords, website keywords" />
-  <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-  <link rel="stylesheet" type="text/css" href="./simplestyle_horizon/style/style.css">
+    <title>simplestyle_horizon - contact us</title>
+    <meta name="description" content="website description"/>
+    <meta name="keywords" content="website keywords, website keywords"/>
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252"/>
+    <link rel="stylesheet" type="text/css" href="./simplestyle_horizon/style/style.css">
 </head>
 
 <body>
 <div id="content_footer"></div>
 <div id="footer">
-  <p><a href="index.html">Home</a> | <a href="examples.html">Examples</a> | <a href="page.html">A Page</a> | <a href="another_page.html">Another Page</a> | <a href="contact.html">Contact Us</a></p>
+    <p><a href="index.html">Home</a> | <a href="examples.html">Examples</a> | <a href="page.html">A Page</a> | <a
+            href="another_page.html">Another Page</a> | <a href="contact.html">Contact Us</a></p>
 </div>
 </div>
 </body>

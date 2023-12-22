@@ -1,21 +1,93 @@
 package com.bharat.studyEasy.controller;
 
+import com.bharat.studyEasy.entity.User;
+import com.bharat.studyEasy.model.UsersModel;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "site", value = "/site")
 public class Site extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String page = request.getParameter("page").toLowerCase();
+        switch (page) {
+
+            case "listusers":
+                try {
+                    listusers(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "adduser":
+                adduser(request, response);
+                break;
+            case "updateuser":
+                updateuser(request, response);
+                break;
+            case "deleteuser":
+                new UsersModel().deleteUser(Integer.parseInt(request.getParameter("user_id")));
+                try {
+                    listusers(request,
+                            response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                request.setAttribute("title", "Error");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                break;
+        }
+
     }
 
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        User user = new User(request.getParameter("username"), request.getParameter("email"));
+        new UsersModel().addUser(user);
+        try {
+            listusers(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private void adduser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("title", "adduser");
+        request.getRequestDispatcher("adduser.jsp").forward(request, response);
+
+    }
+
+    private void listusers(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        List<User> users = new ArrayList<>();
+        users = new UsersModel().listuser();
+        request.setAttribute("listusers", users);
+        request.setAttribute("title", "List User");
+        request.getRequestDispatcher("listusers.jsp").forward(request, response);
+    }
+
+    private void updateuser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("title", "updateuser");
+        request.getRequestDispatcher("updateuser.jsp").forward(request, response);
+
     }
 }

@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersModel {
+
     public List<User> listuser() throws SQLException, ClassNotFoundException {
-        List <User> listuser = new ArrayList<User>();
+        List<User> listuser = new ArrayList<User>();
         // step one connection object init
         Connection connect = DatabseConfig.getConnection();
         Statement stmt = null;
@@ -30,17 +31,17 @@ public class UsersModel {
         return listuser;
     }
 
-    public void addUser (User newUser) {
+    public void addUser(User newUser) {
         Connection connect = null;
         PreparedStatement statement = null;
         try {
             connect = DatabseConfig.getConnection();
             String username = newUser.getUsername();
             String email = newUser.getEmail();
-            String query = "insert into users (username,email) values (?,?)";
+            String query = "insert into users (username,email)  values (?,?)";
             statement = connect.prepareStatement(query);
             statement.setString(1, username);
-            statement.setString(2,email);
+            statement.setString(2, email);
             statement.execute();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -48,7 +49,7 @@ public class UsersModel {
         }
     }
 
-    public void updateUser (User updateUser) {
+    public void updateUser(User updateUser) {
         Connection connect = null;
         PreparedStatement statement = null;
 
@@ -57,7 +58,7 @@ public class UsersModel {
             int userId = updateUser.getUser_id();
             String username = updateUser.getUsername();
             String email = updateUser.getEmail();
-            String  query = "update users set username = ?, email = ? where user_id=?";
+            String query = "update users set username = ?, email = ? where user_id=?";
             statement.setString(1, username);
             statement.setString(2, email);
             statement.setInt(3, userId);
@@ -69,19 +70,21 @@ public class UsersModel {
         }
     }
 
-    public void deleteUser (int userId) {
+    public void deleteUser(int userId) {
         Connection connect = null;
         PreparedStatement statement = null;
 
         try {
-            connect =DatabseConfig.getConnection();
+            connect = DatabseConfig.getConnection();
             String query = "delete from users where user_id = ?";
             statement = connect.prepareStatement(query);
             statement.setInt(1, userId);
             statement.execute();
 
-        } catch(SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
+
 }
