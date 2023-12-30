@@ -1,0 +1,70 @@
+version: "3"
+
+services:
+
+    httpd:
+        container_name: ccew_httpd
+        image: ccewuksdevoneregconreg1.azurecr.io/ccew-httpd:develop
+        env_file:
+            - httpd/httpd.env
+        ports:
+            - "8181:80"
+        networks:
+            - ccew_network
+
+    liferay:
+        container_name: ccew_liferay
+        image: ccewuksdevoneregconreg1.azurecr.io/ccew-liferay:develop
+        env_file:
+            - liferay/liferay.env
+        volumes:
+            - ccew-liferay-data:/opt/liferay/data
+        ports:
+            - 8000:8000
+            - 8080:8080
+            - 11311:11311
+        depends_on:
+            - mssql
+            - elasticsearch
+        networks:
+            - ccew_network
+
+    mssql:
+        container_name: ccew_mssql
+        build: ./mssql
+        volumes:
+            - ccew-mssql-data:/var/opt/mssql
+        env_file:
+            - mssql/mssql.env
+        ports:
+            - "1433:1433"
+        networks:
+            - ccew_network
+
+    elasticsearch:
+        image: ccewuksdevoneregconreg1.azurecr.io/ccew-elasticsearch:develop
+        container_name: ccew_elasticsearch
+        env_file:
+            - elasticsearch/elasticsearch.env
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - ccew-elasticsearch-data:/usr/share/elasticsearch/data
+        ports:
+            - 9200:9200
+        networks:
+            - ccew_network
+
+networks:
+    ccew_network:
+        driver: bridge
+
+volumes:
+    ccew-liferay-data:
+        driver: local
+    ccew-mssql-data:
+        driver: local
+    ccew-elasticsearch-data:
+        driver: local

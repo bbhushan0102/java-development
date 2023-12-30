@@ -1,0 +1,6 @@
+version: '3'
+services:
+
+  liferay:
+    volumes:
+      - /Users/bharat/project/ccew-liferay-phase-3/docker/liferay/resources:/etc/liferay/mount

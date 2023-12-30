@@ -1,0 +1,19 @@
+CREATE DATABASE liferay;
+GO
+
+USE [master]
+GO
+CREATE LOGIN [liferay] WITH PASSWORD=N'Liferay123', DEFAULT_DATABASE=[master], CHECK_EXPIRATION=OFF, CHECK_POLICY=ON
+GO
+USE [liferay]
+GO
+CREATE USER [liferay] FOR LOGIN [liferay]
+GO
+USE [liferay]
+GO
+ALTER USER [liferay] WITH DEFAULT_SCHEMA=[dbo]
+GO
+USE [liferay]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [liferay]
+GO
