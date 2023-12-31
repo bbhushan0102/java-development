@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity(name="files")
-@Table (name = "files")
+@Table (name="files")
 public class Files {
     @Id
     @Column(name="id")
@@ -24,13 +24,6 @@ public class Files {
 
     public Files() {
 
-    }
-
-    public Files(int id, String filename, String label, String caption) {
-        this.id = id;
-        this.filename = filename;
-        this.label = label;
-        this.caption = caption;
     }
 
     public String getFilename() {
@@ -55,5 +48,15 @@ public class Files {
 
     public void setCaption(String caption) {
         this.caption = caption;
+    }
+
+    @Override
+    public String toString() {
+        return "Files{" +
+                "id=" + id +
+                ", filename='" + filename + '\'' +
+                ", label='" + label + '\'' +
+                ", caption='" + caption + '\'' +
+                '}';
     }
 }

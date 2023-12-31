@@ -9,7 +9,7 @@
 </h1>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
-<form action="<%=request.getContextPath() %>/ImageUpload" method="post" enctype="multipart/form-data">
+<form action="<%=request.getContextPath() %>/ImageUpload?action=filesUpload" method="post" enctype="multipart/form-data">
     Select images <input type="file" name="files" multiple />
     <input type="submit" value="upload" />
 </form>
